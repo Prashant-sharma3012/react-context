@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import Header from './components/header';
+import { ThemeContext, themes } from './context/theme-context';
 
 function App() {
+
+  const [theme, toggle] = useState({ pallette: themes.dark, isDark: true })
+
+  const toggleTheme = () => theme.isDark ?
+    toggle({ pallette: themes.light, isDark: false }) :
+    toggle({ pallette: themes.dark, isDark: true });
+
   return (
-    <div className="App">
-      wololo
-    </div>
+    <ThemeContext.Provider value={theme}>
+      <div className="App">
+        <Header toggleTheme={toggleTheme} />
+      </div>
+    </ThemeContext.Provider>
   );
 }
 
